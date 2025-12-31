@@ -15,7 +15,7 @@ export default function YearCarousel({ onComplete }: YearCarouselProps) {
 
   const paginate = (newDirection: number) => {
     const nextIndex = currentIndex + newDirection;
-    
+
     if (nextIndex >= yearData.length) {
       onComplete();
     } else if (nextIndex >= 0) {
@@ -33,30 +33,32 @@ export default function YearCarousel({ onComplete }: YearCarouselProps) {
     enter: (direction: number) => ({
       x: direction > 0 ? 1000 : -1000,
       opacity: 0,
-      scale: 0.95
+      scale: 0.95,
     }),
     center: {
       zIndex: 1,
       x: 0,
       opacity: 1,
-      scale: 1
+      scale: 1,
     },
     exit: (direction: number) => ({
       zIndex: 0,
       x: direction < 0 ? 1000 : -1000,
       opacity: 0,
-      scale: 0.95
-    })
+      scale: 0.95,
+    }),
   };
 
   return (
     <div className="w-full h-full relative overflow-hidden flex flex-col">
       {/* Progress Bar */}
       <div className="absolute top-0 left-0 right-0 h-1 bg-gray-200 z-20">
-        <motion.div 
+        <motion.div
           className="h-full bg-primary"
           initial={{ width: 0 }}
-          animate={{ width: `${((currentIndex + 1) / yearData.length) * 100}%` }}
+          animate={{
+            width: `${((currentIndex + 1) / yearData.length) * 100}%`,
+          }}
           transition={{ duration: 0.3 }}
         />
       </div>
@@ -72,7 +74,7 @@ export default function YearCarousel({ onComplete }: YearCarouselProps) {
             exit="exit"
             transition={{
               x: { type: "spring", stiffness: 300, damping: 30 },
-              opacity: { duration: 0.2 }
+              opacity: { duration: 0.2 },
             }}
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
@@ -98,7 +100,9 @@ export default function YearCarousel({ onComplete }: YearCarouselProps) {
         <Button
           variant="ghost"
           size="icon"
-          className={`pointer-events-auto rounded-full bg-white/20 backdrop-blur-md hover:bg-white/40 text-foreground transition-opacity ${currentIndex === 0 ? 'opacity-0' : 'opacity-100'}`}
+          className={`pointer-events-auto rounded-full bg-white/20 backdrop-blur-md hover:bg-white/40 text-foreground transition-opacity ${
+            currentIndex === 0 ? "opacity-0" : "opacity-100"
+          }`}
           onClick={() => paginate(-1)}
           disabled={currentIndex === 0}
         >

@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { MonthData } from "@/data/year-recap";
+import { getCloudinaryImageUrl } from "@/lib/cloudinary";
 import placeholderImg from "@assets/generated_images/couple_holding_hands_silhouette_against_sunset.png";
 
 interface MonthSlideProps {
@@ -8,22 +9,38 @@ interface MonthSlideProps {
 }
 
 export default function MonthSlide({ data, isActive }: MonthSlideProps) {
+  // Compute image URL at render time when env is available
+  const imageUrl = data.imageId
+    ? getCloudinaryImageUrl(data.imageId)
+    : placeholderImg;
+
   return (
     <div className="flex flex-col h-full w-full p-6 pt-12 md:p-12 justify-between relative overflow-hidden">
-      
       {/* Background Month Number Watermark */}
-      <div className="absolute top-0 right-[-2rem] text-[12rem] font-serif opacity-[0.03] pointer-events-none select-none leading-none z-0">
-        {data.id === 'jan' ? '01' : 
-         data.id === 'feb' ? '02' : 
-         data.id === 'mar' ? '03' : 
-         data.id === 'apr' ? '04' : 
-         data.id === 'may' ? '05' : 
-         data.id === 'jun' ? '06' : 
-         data.id === 'jul' ? '07' : 
-         data.id === 'aug' ? '08' : 
-         data.id === 'sep' ? '09' : 
-         data.id === 'oct' ? '10' : 
-         data.id === 'nov' ? '11' : '12'}
+      <div className="absolute top-0 right-[-2rem] text-[12rem] font-serif opacity-[0.1] pointer-events-none select-none leading-none z-0">
+        {data.id === "jan"
+          ? "01"
+          : data.id === "feb"
+          ? "02"
+          : data.id === "mar"
+          ? "03"
+          : data.id === "apr"
+          ? "04"
+          : data.id === "may"
+          ? "05"
+          : data.id === "jun"
+          ? "06"
+          : data.id === "jul"
+          ? "07"
+          : data.id === "aug"
+          ? "08"
+          : data.id === "sep"
+          ? "09"
+          : data.id === "oct"
+          ? "10"
+          : data.id === "nov"
+          ? "11"
+          : "12"}
       </div>
 
       {/* Content Container */}
@@ -50,11 +67,11 @@ export default function MonthSlide({ data, isActive }: MonthSlideProps) {
         >
           <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent rounded-2xl -rotate-2 transform group-hover:-rotate-1 transition-transform duration-700" />
           <div className="absolute inset-0 bg-white/30 backdrop-blur-sm rounded-2xl shadow-xl overflow-hidden border border-white/50 rotate-1 transform group-hover:rotate-0 transition-transform duration-700">
-             <img 
-               src={data.image || placeholderImg} 
-               alt={data.month} 
-               className="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-500"
-             />
+            <img
+              src={imageUrl}
+              alt={data.month}
+              className="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-500"
+            />
           </div>
         </motion.div>
 
