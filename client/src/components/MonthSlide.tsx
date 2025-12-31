@@ -9,6 +9,9 @@ interface MonthSlideProps {
 }
 
 export default function MonthSlide({ data, isActive }: MonthSlideProps) {
+  const placeholderImg =
+    "/generated_images/couple_holding_hands_silhouette_against_sunset.png";
+
   // Compute image URL at render time when env is available
   const imageUrl = data.imageId
     ? getCloudinaryImageUrl(data.imageId)
